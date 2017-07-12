@@ -1,0 +1,8 @@
+{
+    "name" : "Exercise 01",
+    "description" :"Exercise 01 with angular and d3",
+    "icon" : "line-chart",
+    "type" : "visualization",
+    "version": "0.0.1",
+    "author": "Arczik"
+}

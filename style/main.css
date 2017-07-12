@@ -1,0 +1,41 @@
+/*.extension-container {
+    width: 100%;
+    height: 100%;
+}*/
+
+.simple-btn {
+    border: none;
+    padding: 10px 12px;
+    margin: 2px;
+    color: #666;
+    background-color: #ddd;
+}
+
+.simple-btn:hover {
+    background-color: #666;
+    color: #ddd;
+}
+
+.bar-chart{
+    background-color: #ddd;
+}
+
+.bar-chart .bar {
+  fill: steelblue;
+}
+
+.bar-chart .bar:hover {
+  fill: brown;
+}
+
+.bar-chart .axis--x path {
+  display: none;
+}
+
+.bar-chart .upperLabel {
+    fill: #333;
+}
+
+.bar-chart .innerLabel {
+    fill: orange;    
+}
