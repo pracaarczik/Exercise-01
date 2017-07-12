@@ -6,7 +6,7 @@ define(['../../libs/d3.min', '../../libs/lodash.min'], function (d3, _) {
         drawChart(elementsId, data, svgParams = {}) {
 
             _.defaults(svgParams, { width: 600, height: 400 });
-            let svg, width, height;
+            let svg, width, height, g;
             this.checkIfSvgExistsAndCreateIfNeed.call(this, elementsId, svgParams);
 
             svg = d3.select(`#${elementsId} svg`);
@@ -14,7 +14,7 @@ define(['../../libs/d3.min', '../../libs/lodash.min'], function (d3, _) {
             width = svgParams.width - svgParams.margin.left - svgParams.margin.right;
             height = svgParams.height - svgParams.margin.top - svgParams.margin.bottom;
 
-            var g = svg.append("g")
+            g = svg.append("g")
                 .attr("transform",
                 "translate(" + svgParams.margin.left + "," + svgParams.margin.top + ")");
 
@@ -63,19 +63,6 @@ define(['../../libs/d3.min', '../../libs/lodash.min'], function (d3, _) {
                 svg.setAttribute(`class`, `bar-chart`);
             }
         }
-
-        /**
-         * Make able to use css width and height
-         * @param {*} svgElement 
-         */
-        updateSvgsWidthAndHeight(svgElement, svgParams) {
-            svgElement.attr({
-                width: svgParams.width,
-                height: svgParams.height,
-                style: `width: ${svgParams.width}px; height:${svgParams.height}px`
-            });
-        }
-
 
         static create(argz) {
             return new ChartService(argz);
