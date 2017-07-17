@@ -27,6 +27,10 @@ define([
 
         appendStyleToHead(style);
 
+        var self = this;
+
+        console.log('THIS THIS THIS', this);
+
         return {
             definition: props,
             initialProperties: initProps,
@@ -52,13 +56,12 @@ define([
 
                 let dataSvc = DataService.create();
                 let chartSvc = ChartService.create();
-                let qHyperCube = $scope.layout.qHyperCube;
-                let chartData = dataSvc.manipulateData(qHyperCube, svgParams);
 
                 $scope.msg = 'Hello Arczik';
 
                 $scope.drawChart = function () {
-                    console.log(`drawChart`);
+                    let qHyperCube = $scope.layout.qHyperCube;
+                    let chartData = dataSvc.manipulateData(qHyperCube, svgParams);
                     chartSvc.drawChart(`chart-container`, chartData, svgParams);
                 };
 
@@ -66,6 +69,13 @@ define([
                     console.info('Validated');
                     $scope.drawChart();
                 });
+
+                $scope.selectApiTest = function () {
+                    let backendApi = $scope.component.getBackendApi;
+                    console.log(`select API test`)
+                    console.log(self.backendApi)
+                    this.backendApi.selectValues(dim, [10], true);
+                }.bind(this);
 
                 $scope.drawChart();
 

@@ -39,3 +39,11 @@
 .bar-chart .innerLabel {
     fill: orange;    
 }
+
+.footer{
+    clear: both;
+}
+
+.to-right {
+    float: right;
+}
