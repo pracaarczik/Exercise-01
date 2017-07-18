@@ -35,26 +35,14 @@ define([
             initialProperties: initProps,
             support: { snapshot: true },
             template: template,
-            controller: createController()
+            controller: createController(),
+            resize: function (el, layout) {
+                layout.drawChart()
+            }
         };
 
         function createController() {
             let controller = ['$scope', '$element', function ($scope, $element) {
-
-                var palette = [
-                    "#b0afae",
-                    "#7b7a78",
-                    "#545352",
-                    "#4477aa",
-                    "#7db8da",
-                    "#b6d7ea",
-                    "#46c646",
-                    "#f93f17",
-                    "#ffcf02",
-                    "#276e27",
-                    "#ffffff",
-                    "#000000"
-                ];
 
                 let svgParams = {
                     width: _.round($element.width()),
@@ -68,7 +56,7 @@ define([
                     verticalSpaceBetweenTheBlocks: 10,
                     horizontalSpaceBetweenTheBlocks: 10,
                     clickUpperLabelCallback: clickUpperLabelCallback,
-                    barsColor: palette[$scope.layout.barsColor]
+                    barsColor: $scope.layout.hexColorPicker
                 };
 
                 let dataSvc = DataService.create();
@@ -77,18 +65,22 @@ define([
                 $scope.msg = 'Hello Arczik';
 
                 $scope.drawChart = function () {
+                    let targetSvgParams = _.assign({},
+                        svgParams,
+                        { width: _.round($element.width()), height: _.round($element.height()) - 50 });
+
                     let qHyperCube = $scope.layout.qHyperCube;
-                    let chartData = dataSvc.manipulateData(qHyperCube, svgParams);
-                    chartSvc.drawChart(`chart-container`, chartData, svgParams);
+                    let chartData = dataSvc.manipulateData(qHyperCube, targetSvgParams);
+                    chartSvc.drawChart(`chart-container`, chartData, targetSvgParams);
                 };
 
                 $scope.component.model.Validated.bind(function () {
                     $scope.drawChart();
                 });
 
-                $scope.$watch(function () { return $scope.layout.barsColor; }, function (newVal, oldVal) {
+                $scope.$watch(function () { return $scope.layout.hexColorPicker; }, function (newVal, oldVal) {
                     if (newVal !== oldVal) {
-                        svgParams.barsColor = palette[newVal];
+                        svgParams.barsColor = newVal;
                         $scope.drawChart();
                     }
                 });
@@ -103,7 +95,8 @@ define([
                     $scope.selectValues(dim, [value], true);
                 }
 
-
+                // ugly hook to send drawChart into resize event - rlu ugly
+                $scope.layout.drawChart = $scope.drawChart;
 
             }];
 
