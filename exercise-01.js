@@ -29,7 +29,6 @@ define([
 
         var self = this;
 
-        console.log('THIS THIS THIS', this);
 
         return {
             definition: props,
@@ -41,6 +40,22 @@ define([
 
         function createController() {
             let controller = ['$scope', '$element', function ($scope, $element) {
+
+                var palette = [
+                    "#b0afae",
+                    "#7b7a78",
+                    "#545352",
+                    "#4477aa",
+                    "#7db8da",
+                    "#b6d7ea",
+                    "#46c646",
+                    "#f93f17",
+                    "#ffcf02",
+                    "#276e27",
+                    "#ffffff",
+                    "#000000"
+                ];
+
                 let svgParams = {
                     width: _.round($element.width()),
                     height: _.round($element.height()) - 50,
@@ -51,7 +66,9 @@ define([
                         bottom: 50
                     },
                     verticalSpaceBetweenTheBlocks: 10,
-                    horizontalSpaceBetweenTheBlocks: 10
+                    horizontalSpaceBetweenTheBlocks: 10,
+                    clickUpperLabelCallback: clickUpperLabelCallback,
+                    barsColor: palette[$scope.layout.barsColor]
                 };
 
                 let dataSvc = DataService.create();
@@ -66,18 +83,27 @@ define([
                 };
 
                 $scope.component.model.Validated.bind(function () {
-                    console.info('Validated');
                     $scope.drawChart();
                 });
 
-                $scope.selectApiTest = function () {
-                    let backendApi = $scope.component.getBackendApi;
-                    console.log(`select API test`)
-                    console.log(self.backendApi)
-                    this.backendApi.selectValues(dim, [10], true);
-                }.bind(this);
+                $scope.$watch(function () { return $scope.layout.barsColor; }, function (newVal, oldVal) {
+                    if (newVal !== oldVal) {
+                        svgParams.barsColor = palette[newVal];
+                        $scope.drawChart();
+                    }
+                });
+                $scope.clickUpperLabelCallback = clickUpperLabelCallback.bind(this);
 
                 $scope.drawChart();
+
+                function clickUpperLabelCallback(d) {
+                    let dim = 0;
+                    let value = d.qElemNumber;
+                    // $scope.backendApi.selectValues(dim, [value], true);
+                    $scope.selectValues(dim, [value], true);
+                }
+
+
 
             }];
 

@@ -20,12 +20,13 @@
     background-color: #ddd;
 }
 
-.bar-chart .bar {
+/*.bar-chart .bar {
   fill: steelblue;
-}
+}*/
 
 .bar-chart .bar:hover {
-  fill: brown;
+  /*fill: brown;*/
+  cursor: pointer;
 }
 
 .bar-chart .axis--x path {
@@ -34,6 +35,9 @@
 
 .bar-chart .upperLabel {
     fill: #333;
+}
+.bar-chart .upperLabel:hover {
+    cursor: pointer;
 }
 
 .bar-chart .innerLabel {

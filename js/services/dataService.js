@@ -107,9 +107,7 @@ define(['../../libs/lodash.min'], function (_) {
                     );
                 }
                 ++groupIndex;
-            }.bind(this));
-
-            console.log(`final data`, processedData);
+            }.bind(this));            
 
             return processedData;
         }
@@ -118,7 +116,7 @@ define(['../../libs/lodash.min'], function (_) {
             return _.round(blockSize * ratio);
         }
 
-        calculateYRatio(elements, height, svgParams) {            
+        calculateYRatio(elements, height, svgParams) {
             let availableHeight = height - elements.length * svgParams.verticalSpaceBetweenTheBlocks;
             let sum = _.sumBy(elements, `blockSize`);
             return 0 === sum ? 0 : availableHeight / sum;
@@ -149,7 +147,8 @@ define(['../../libs/lodash.min'], function (_) {
                     return {
                         blockSize: _.round(_.toInteger(_.get(matrixItem, `[2].qText`, 0))),
                         topLabel: _.get(matrixItem, `[0].qText`, ``),
-                        innerLabel: _.get(matrixItem, `[1].qText`, ``)
+                        innerLabel: _.get(matrixItem, `[1].qText`, ``),
+                        qElemNumber: _.get(matrixItem, `[0].qElemNumber`, -1)
                     };
                 });
 

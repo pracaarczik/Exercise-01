@@ -21,6 +21,15 @@ define([], function () {
         defaultValue: "Custom Title"
     };
 
+    var colorPicker = {
+        label: "My color-picker",
+        component: "color-picker",
+        ref: "barsColor",
+        type: "integer",
+        defaultValue: 3
+    };
+
+
     return {
         type: "items",
         component: "accordion",
@@ -29,7 +38,8 @@ define([], function () {
             measures: measures,
             sorting: sorting,
             appearance: appearancePanel,
-            customTitle: customTitle
+            customTitle: customTitle,
+            colorPicker: colorPicker
         }
     };
 });

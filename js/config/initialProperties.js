@@ -16,6 +16,6 @@ define([], function () {
         fixed: true,
         width: 25,
         percent: true,
-        selectionMode: "CONFIRM"
+        selectionMode: "QUICK"
     };
 });
